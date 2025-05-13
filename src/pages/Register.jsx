@@ -11,28 +11,29 @@ import { Link, Form } from 'react-router-dom';
 /**
  * Custom modules
  */
-import { logoLight, logoDark } from '../assets/assets';
+import { logoLight, logoDark, banner } from '../assets/assets';
 
 /**
  * Components
  */
 import PageTitle from '../components/PageTitle';
 import TextField from '../components/TextField';
+import { Button } from '../components/Button';
 
 const Register = () => {
   return (
     <>
       <PageTitle title='Create an account' />
 
-      <div className=''>
-        <div className=''>
+      <div className='relative w-screen h-dvh p-2 grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
+        <div className='flex flex-col p-4'>
           <Link>
             <img
               src={logoLight}
               alt='phoenix logo'
               width={133}
               height={24}
-              className=''
+              className='max-w-max mx-auto lg:mx-0'
             />
 
             <img
@@ -81,9 +82,31 @@ const Register = () => {
                 required={true}
               />
 
-              
+              <Button type='submit'>Create account</Button>
             </Form>
+
+            <p className=''>
+              Already have an account?
+              <Link
+                to='/login'
+                className=''
+              >
+                Sign in
+              </Link>
+            </p>
           </div>
+
+          <p className=''>&copy; 2025 scovings, All rights reserved.</p>
+        </div>
+
+        <div className=''>
+          <img
+            src={banner}
+            alt=''
+            className='img-cover'
+          />
+
+          <p className=''>Chat with Phoenix to supeercharge your ideas.</p>
         </div>
       </div>
     </>
