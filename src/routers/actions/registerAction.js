@@ -1,0 +1,45 @@
+/**
+ * @copyright 2025 scovings
+ * @license Apache-2.0
+ */
+
+/**
+ * Custom modules
+ */
+import { account } from '../../lib/appwrite';
+import generateID from '../../utils/generateId';
+
+/**
+ * Handles user registration
+ */
+const registerAction = async ({ request }) => {
+  // Retrieve the form data from the incoming request
+  const formData = await request.formData();
+
+  try {
+    // Creates a new user account using the provided email, password and name
+    await account.create(
+      generateID(), // Generates a unique ID for the user
+      formData.get('email'), // Retrieves email from form data
+      formData.get('password'), // Retrieves password from form data
+      formData.get('name'), // Retrieves name from form data
+    );
+  } catch (err) {
+    // Returns an error object if account creation fails
+    return {
+      message: err.message, // Error message from the caught error
+    };
+  }
+
+  // After successfully account create, login the user and redirect to homepage
+  try {
+    // Creates a session for the new user with the provided email and password
+    await account.createEmailPasswordSession
+  } catch (err) {
+
+  }
+
+  return null;
+};
+
+export default registerAction;
