@@ -13,12 +13,19 @@ import { RouterProvider } from 'react-router-dom';
 import router from './routers/routes';
 
 /**
+ * Components
+ */
+import SnackbarProvider from './contexts/SnackbarContext';
+
+/**
  * CSS link
  */
 import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <SnackbarProvider>
+      <RouterProvider router={router} />
+    </SnackbarProvider>
   </StrictMode>,
 );
