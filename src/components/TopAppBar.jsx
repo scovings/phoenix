@@ -36,15 +36,16 @@ const TopAppBar = () => {
 
   return (
     <header className='relative flex justify-between items-center h-16 px-4'>
-      <div className='flex items-center gap-1'>
+      <div className='flex items-center gap-3'>
         <IconBtn
           icon='menu'
           title='Menu'
+          classes='lg:hidden'
         />
 
         <Link
           to='/'
-          className=''
+          className='min-w-max max-w-max h-[24px] lg:hidden'
         >
           <img
             src={logoLight}
@@ -69,7 +70,7 @@ const TopAppBar = () => {
           <Avatar />
         </IconBtn>
 
-        <Menu>
+        <Menu classes=''>
           <MenuItem labelText='Log out'/>
         </Menu>
       </div>
