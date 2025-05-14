@@ -28,9 +28,9 @@ import TextField from '../components/TextField';
 import { Button } from '../components/Button';
 import { CircularProgress, LinearProgress } from '../components/Progress';
 
-const Register = () => {
+const ResetLink = () => {
   // Get error data from form submission using useActionData (likely from React Router).
-  const error = useActionData();
+  const actionData = useActionData();
 
   // Get navigation state e.g. loading/submitting etc.
   const navigation = useNavigation();
@@ -39,17 +39,18 @@ const Register = () => {
 
   useEffect(() => {
     // Show snackbar with the provided error message
-    if (error?.message) {
+    if (actionData) {
       showSnackbar({
-        message: error.message,
-        type: 'error',
+        message: actionData?.message,
+        type: actionData.ok ? 'info' : 'error',
+        timeOut: 8000,
       });
     }
-  }, [error, showSnackbar]);
+  }, [actionData, showSnackbar]);
 
   return (
     <>
-      <PageTitle title='Create an account' />
+      <PageTitle title='Reset password' />
 
       <div className='relative w-screen h-dvh p-2 grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-4'>
@@ -76,12 +77,11 @@ const Register = () => {
 
           <div className='flex flex-col gap-2 max-w-[480px] w-full mx-auto'>
             <h2 className='text-displaySmall font-semibold text-light-onBackground dark:text-dark-onBackground text-center'>
-              Create an account
+              Forgot your password?
             </h2>
 
             <p className='text-bodyLarge text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant mt-1 mb-5 text-center px-2'>
-              Register today and gain access to powerful tools that will
-              supercharge your ideas.
+              Enter your email, and we&apos;ll send a password reset link.
             </p>
 
             <Form
@@ -89,28 +89,13 @@ const Register = () => {
               className='grid grid-cols-1 gap-4'
             >
               <TextField
-                type='text'
-                name='name'
-                label='Full name'
-                placeholder='Full name'
-                required={true}
-                autoFocus={true}
-              />
-
-              <TextField
                 type='email'
                 name='email'
                 label='Email'
                 placeholder='Email'
+                helperText='The verification link sent to your email adress wil be valid for 1 hour. Make sure to check your spam folder if you don&apos;t see it.'
                 required={true}
-              />
-
-              <TextField
-                type='password'
-                name='password'
-                label='Password'
-                placeholder='Enter your Password'
-                required={true}
+                autoFocus={true}
               />
 
               <Button
@@ -120,20 +105,10 @@ const Register = () => {
                 {navigation.state === 'submitting' ? (
                   <CircularProgress size='small' />
                 ) : (
-                  'Create account'
+                  'Send email'
                 )}
               </Button>
             </Form>
-
-            <p className='text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant text-center mt-4'>
-              Already have an account?
-              <Link
-                to='/login'
-                className='link text-labelLarge inline-block ms-1 text-light-onSurface dark:text-dark-onSurface'
-              >
-                Sign in
-              </Link>
-            </p>
           </div>
 
           <p className='mt-auto mx-auto text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant text-bodyMedium lg:mx-0'>
@@ -163,4 +138,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ResetLink;

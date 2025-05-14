@@ -13,11 +13,21 @@ import { createBrowserRouter } from 'react-router-dom';
  */
 import App from '../App.jsx';
 import Register from '../pages/Register.jsx';
+import Login from '../pages/Login.jsx';
+import ResetLink from '../pages/ResetLink.jsx';
+
+/**
+ * Loaders
+ */
+import registerLoader from './loaders/registerLoader.js';
+import loginLoader from './loaders/loginLoader.js';
 
 /**
  * Actions
  */
 import registerAction from './actions/registerAction.js';
+import loginAction from './actions/loginAction.js';
+import resetLinkAction from './actions/resetLinkAction.js';
 
 /**
  * Router
@@ -30,8 +40,23 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+    loader: registerLoader,
     action: registerAction,
   },
+  {
+    path: '/login',
+    element: <Login />,
+    loader: loginLoader,
+    action: loginAction,
+  },
+  {
+    path: '/reset-link',
+    element: <ResetLink />,
+    action: resetLinkAction,
+  },
+  {
+    path: '/reset-password'
+  }
 ]);
 
 export default router;

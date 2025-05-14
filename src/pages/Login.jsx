@@ -28,7 +28,7 @@ import TextField from '../components/TextField';
 import { Button } from '../components/Button';
 import { CircularProgress, LinearProgress } from '../components/Progress';
 
-const Register = () => {
+const Login = () => {
   // Get error data from form submission using useActionData (likely from React Router).
   const error = useActionData();
 
@@ -49,7 +49,7 @@ const Register = () => {
 
   return (
     <>
-      <PageTitle title='Create an account' />
+      <PageTitle title='Login' />
 
       <div className='relative w-screen h-dvh p-2 grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-4'>
@@ -76,12 +76,11 @@ const Register = () => {
 
           <div className='flex flex-col gap-2 max-w-[480px] w-full mx-auto'>
             <h2 className='text-displaySmall font-semibold text-light-onBackground dark:text-dark-onBackground text-center'>
-              Create an account
+              Welcome Back to Phoenix
             </h2>
 
             <p className='text-bodyLarge text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant mt-1 mb-5 text-center px-2'>
-              Register today and gain access to powerful tools that will
-              supercharge your ideas.
+              Enter your Phoenix account details.
             </p>
 
             <Form
@@ -89,20 +88,12 @@ const Register = () => {
               className='grid grid-cols-1 gap-4'
             >
               <TextField
-                type='text'
-                name='name'
-                label='Full name'
-                placeholder='Full name'
-                required={true}
-                autoFocus={true}
-              />
-
-              <TextField
                 type='email'
                 name='email'
                 label='Email'
                 placeholder='Email'
                 required={true}
+                autoFocus={true}
               />
 
               <TextField
@@ -113,6 +104,15 @@ const Register = () => {
                 required={true}
               />
 
+              <div className='text-right'>
+                <Link
+                  to='/reset-link'
+                  className='link text-labelLarge inline-block'
+                >
+                  Forgot password?
+                </Link>
+              </div>
+
               <Button
                 type='submit'
                 disabled={navigation.state === 'submitting'}
@@ -120,18 +120,18 @@ const Register = () => {
                 {navigation.state === 'submitting' ? (
                   <CircularProgress size='small' />
                 ) : (
-                  'Create account'
+                  'Sign in'
                 )}
               </Button>
             </Form>
 
             <p className='text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant text-center mt-4'>
-              Already have an account?
+              Don&apos;t have an account?
               <Link
-                to='/login'
+                to='/register'
                 className='link text-labelLarge inline-block ms-1 text-light-onSurface dark:text-dark-onSurface'
               >
-                Sign in
+                Create an account
               </Link>
             </p>
           </div>
@@ -163,4 +163,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
