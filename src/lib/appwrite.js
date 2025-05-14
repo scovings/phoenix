@@ -6,7 +6,7 @@
 /**
  * Node modules
  */
-import { Client, Account } from 'appwrite';
+import { Client, Account, Avatars } from 'appwrite';
 
 /**
  * Initial appwrite client
@@ -22,4 +22,9 @@ client
  */
 const account = new Account(client);
 
-export { account };
+/**
+ * Initial appwrite avatar
+ */
+const avatars = new Avatars(client);
+
+export { account, avatars };
