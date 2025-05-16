@@ -7,6 +7,7 @@
  * Node modules
  */
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 /**
  * Common button
@@ -62,6 +63,31 @@ IconBtn.propTypes = {
   icon: PropTypes.string,
   size: PropTypes.string,
   children: PropTypes.any,
+};
+
+/**
+ * Extended fab
+ */
+const ExtendedFab = ({ href, text, classes = '', ...rest }) => {
+  return (
+    <Link
+      to={href}
+      className={`extended-fab ${classes}`}
+      {...rest}
+    >
+      <span className='material-symbols-rounded'>add</span>
+
+      <span className='truncate'>{text}</span>
+
+      <div className='state-layer'></div>
+    </Link>
+  );
+};
+
+ExtendedFab.propTypes = {
+  href: PropTypes.string,
+  text: PropTypes.string,
+  classes: PropTypes.string,
 }
 
-export { Button, IconBtn };
+export { Button, IconBtn, ExtendedFab };

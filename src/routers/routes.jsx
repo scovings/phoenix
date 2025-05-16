@@ -24,6 +24,7 @@ import registerLoader from './loaders/registerLoader.js';
 import loginLoader from './loaders/loginLoader.js';
 import resetLinkLoader from './loaders/resetLinkLoader.js';
 import resetPasswordLoader from './loaders/resetPasswordLoader.js';
+import appLoader from './loaders/appLoader.js';
 
 /**
  * Actions
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    loader: appLoader,
   },
   {
     path: '/register',

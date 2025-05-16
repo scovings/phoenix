@@ -6,8 +6,19 @@
 /**
  * Node modules
  */
-import { Link, useNavigation } from 'react-router-dom';
+import { useNavigation, useNavigate, useLoaderData } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import PropTypes from 'prop-types';
+
+/**
+ * Custom modules
+ */
+import logout from '../utils/logout';
+
+/**
+ * Custom hooks
+ */
+import { useToggle } from '../hooks/useToggle';
 
 /**
  * Components
@@ -17,15 +28,26 @@ import Avatar from './Avatar';
 import Menu from './Menu';
 import MenuItem from './MenuItem';
 import { LinearProgress } from './Progress';
+import Logo from './Logo';
 
-/**
- * Assets
- */
-import { logoLight, logoDark } from '../assets/assets';
-
-const TopAppBar = () => {
+const TopAppBar = ({ toggleSidebar }) => {
   // - useNavigation: Provides navigation state (loading, idle, submitting, etc)
   const navigation = useNavigation();
+
+  // - useNavigate: Function for programmatically navigating between routes.
+  const navigate = useNavigate();
+
+  /**
+   * - user: User data for the currently logged-in user
+   */
+  const { user } = useLoaderData();
+
+  /**
+   * Use a custom hook to manage the menu's show state.
+   * 'showMenu' hold the current state,
+   * and 'setShowMenu' is a function to toggle the menu.
+   */
+  const [showMenu, setShowMenu] = useToggle();
 
   /**
    * Check if the currect navigation state is 'loading' and if there is no form data associated with the navigation.
@@ -41,43 +63,32 @@ const TopAppBar = () => {
           icon='menu'
           title='Menu'
           classes='lg:hidden'
+          onClick={toggleSidebar}
         />
 
-        <Link
-          to='/'
-          className='min-w-max max-w-max h-[24px] lg:hidden'
-        >
-          <img
-            src={logoLight}
-            width={133}
-            height={24}
-            alt='phoenix logo'
-            className='dark:hidden'
-          />
-
-          <img
-            src={logoDark}
-            width={133}
-            height={24}
-            alt='phoenix logo'
-            className='hidden dark:block'
-          />
-        </Link>
+        <Logo classes='lg:hidden' />
       </div>
 
       <div className='menu-wrapper'>
-        <IconBtn>
-          <Avatar />
+        <IconBtn onClick={setShowMenu}>
+          <Avatar name={user.name} />
         </IconBtn>
 
-        <Menu classes=''>
-          <MenuItem labelText='Log out'/>
+        <Menu classes={showMenu ? 'active' : ''}>
+          <MenuItem
+            labelText='Log out'
+            onClick={() => logout(navigate)}
+          />
         </Menu>
       </div>
 
       <AnimatePresence>{isNormalLoad && <LinearProgress />}</AnimatePresence>
     </header>
   );
+};
+
+TopAppBar.propTypes = {
+  toggleSidebar: PropTypes.func,
 };
 
 export default TopAppBar;

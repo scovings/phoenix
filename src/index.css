@@ -308,19 +308,14 @@
     * Icon button
     */
   .icon-btn {
-    --state-layer-bg: theme('colors.light.onSurfaceVariant')
-    @apply text-light-onSurfaceVariant
-    dark:text-dark-onSurfaceVariant
-    grid 
-    place-items-center 
-    rounded-full 
-    h-10 
-    w-10;
+    --state-layer-bg: theme('colors.light.onSurfaceVariant') @apply
+      text-light-onSurfaceVariant dark: text-dark-onSurfaceVariant grid
+      place-items-center rounded-full h-10 w-10;
   }
 
   @media (prefers-color-scheme: dark) {
     .icon-btn {
-      --state-layer-bg: theme('colors.dark.onSurfaceVariant')
+      --state-layer-bg: theme('colors.dark.onSurfaceVariant');
     }
   }
 
@@ -351,7 +346,7 @@
   /**
    * Avatar
    */
-   .avatar {
+  .avatar {
     @apply aspect-square
     bg-light-surfaceContainerHighest
     dark:bg-dark-surfaceContainerHighest
@@ -359,9 +354,9 @@
     max-w-[32px]
     overflow-hidden
     rounded-full;
-   }
+  }
 
-   /**
+  /**
     * Menu
     */
   .menu-wrapper {
@@ -412,6 +407,215 @@
       -state-layer-bg: theme('colors.light.onSurface');
     }
   }
+
+  /**
+   * Sidebar
+   */
+  .sidebar {
+    @apply bg-light-surfaceContainerLow
+    dark:bg-dark-surfaceContainerLow
+    text-light-onSurface
+    dark:text-dark-onSurface
+    fixed
+    top-0
+    left-0
+    h-dvh
+    w-0
+    max-w-[80vw]
+    rounded-e-large
+    shadow-elevation1
+    overflow-hidden
+    transition-[width]
+    duration-short4
+    ease-emphasized
+    z-40
+  
+    /* Responsiive for small screen */
+    sm:max-w-[320px]
+  
+    /* Responsiive for large screen */
+    lg:static
+    lg:opacity-100
+    lg:visible
+    lg:w-full
+    lg:shadow-none
+    lg:rounded-none;
+  }
+
+  .sidebar.active {
+    @apply w-[80vw]
+    duration-medium2
+    ease-standardDecelerate
+
+    /* Responsive for small screen */
+    sm:w-[320px];
+  }
+
+  .sidebar-inner {
+    @apply h-full
+    grid
+    grid-rows-[max-content,max-content,1fr,max-content]
+    grid-cols-1
+    px-3
+    opacity-0
+    transition-opacity
+    duration-medium2
+    
+    /* Responsive for large screen */
+    lg:opacity-100;
+  }
+
+  .sidebar.active .sidebar-inner {
+    @apply opacity-100
+    delay-short2;
+  }
+
+  /**
+    * Overlay
+    */
+  .overlay {
+    @apply fixed
+    top-0
+    left-0
+    w-full
+    h-dvh
+    z-30
+    bg-transparent
+    invisible
+    transition-colors
+
+    /* Responsive for large screen */
+    lg:hidden;
+  }
+
+  .overlay.active {
+    @apply bg-black/40
+    visible;
+  }
+
+  /**
+    * Extended FAB
+    */
+  .extended-fab {
+    --state-layer-bg: theme('colors.dark.onPrimaryContainer');
+    @apply bg-light-primaryContainer
+    dark:bg-dark-primaryContainer
+    text-light-onPrimaryContainer
+    dark:text-dark-onPrimaryContainer
+    text-labelLarge
+    max-w-max
+    flex
+    items-center
+    gap-2
+    h-[56px]
+    ps-3
+    pe-4
+    rounded-large
+    shadow-elevation1
+    transition-shadow
+    duration-short3
+    ease-standard
+    
+    hover:shadow-elevation2
+    
+    focus:shadow-elevation1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .extended-fab {
+      --state-layer-bg: theme('colors.dark.onPrimaryContainer');
+    }
+  }
+
+  .extended-fab[disabled] {
+    @apply bg-light-onSurface/[0.12]
+    dark:bg-dark-onSurface/[0.12]
+    text-light-onSurface/[0.38]
+    dark:text-dark-onSurface/[0.38]
+    shadow-none
+    pointer-events-none;
+  }
+
+  /**
+    * Navlink
+    */
+  .nav-link {
+    --state-layer-bg: theme('colors.light.onSurfaceVariant');
+    @apply flex
+    items-center
+    gap-3
+    text-labelLarge
+    text-light-onSurfaceVariant
+    dark:text-dark-onSurfaceVariant
+    h-9
+    rounded-large
+    ps-4
+    pe-10;
+  }
+
+  .nav-link.active {
+    --state-layer-bg: theme('colors.light.onSecondaryContainer');
+    @apply bg-light-secondaryContainer
+    dark:bg-dark-secondaryContainer
+    text-light-onSecondaryContainer
+    dark:text-dark-onSecondaryContainer;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .nav-link {
+      --state-layer-bg: theme('colors.light.onSurfaceVariant');
+    }
+
+    .nav-link.active {
+      --state-layer-bg: theme('colors.dark.onSecondaryContainer');
+    }
+  }
+
+  /**
+    * Prompt field
+    */
+  .prompt-field-container {
+    --state-layer-bg: theme('colors.light.onSurfaceVariant');
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .prompt-field-container {
+      --state-layer-bg: theme('colors.light.onSurfaceVariant');
+      @apply bg-light-surfaceContainer
+      dark:bg-dark-surfaceContainer
+      min-h-16
+      rounded-full
+      flex
+      items-end
+      flex-wrap
+      p-1
+      cursor-text;
+    }
+  }
+
+  .prompt-field {
+    @apply text-light-onSurface
+    dark:text-dark-onSurface
+    text-bodyLarge
+    relative
+    outline-none
+    grow
+    mx-4
+    py-3.5
+    max-h-[230px]
+    overflow-y-auto
+    whitespace-pre-wrap
+    
+    /* ::After */
+    after:content-[attr(data-placeholder)]
+    after:text-light-onSurfaceVariant/90
+    after:dark:text-dark-onSurfaceVariant/90
+    after:absolute
+    after:left-0
+    after:top-1/2
+    after:-translate-y-1/2
+    after:pointer-events-none;
+  }
 }
 
 /**
@@ -431,15 +635,19 @@
   }
 
   .material-symbols-rounded {
-    font-variation-settings: 
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
     @apply w-[1em]
     min-w-[1em]
     h-[1em]
     min-h-[1em]
     overflow-hidden;
+  }
+
+  .icon-small {
+    @apply text-[18px];
   }
 }
