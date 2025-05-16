@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 /**
  * Common button
@@ -20,14 +21,14 @@ const Button = ({
   ...rest
 }) => {
   return (
-    <button
+    <motion.button
       className={`btn ${variant} ${color} ${classes}`}
       {...rest}
     >
       {children}
 
       <div className='state-layer'></div>
-    </button>
+    </motion.button>
   );
 };
 
@@ -43,7 +44,7 @@ Button.propTypes = {
  */
 const IconBtn = ({ classes = '', icon, size = '', children, ...rest }) => {
   return (
-    <button
+    <motion.button
       className={`icon-btn ${size} ${classes}`}
       {...rest}
     >
@@ -54,7 +55,7 @@ const IconBtn = ({ classes = '', icon, size = '', children, ...rest }) => {
       )}
 
       <div className='state-layer'></div>
-    </button>
+    </motion.button>
   );
 };
 
@@ -88,6 +89,6 @@ ExtendedFab.propTypes = {
   href: PropTypes.string,
   text: PropTypes.string,
   classes: PropTypes.string,
-}
+};
 
 export { Button, IconBtn, ExtendedFab };
