@@ -8,7 +8,7 @@
  */
 import { motion } from 'framer-motion';
 import { useRef, useCallback, useState } from 'react';
-import { useSubmit } from 'react-router-dom';
+import { useNavigation, useSubmit } from 'react-router-dom';
 
 /**
  * Components
@@ -19,6 +19,12 @@ const PromptField = () => {
   // 'inputField' and 'inputFieldContainer' hold references to their DOM elements.
   const inputField = useRef();
   const inputFieldContainer = useRef();
+
+  // manual form submission
+  const submit = useSubmit();
+
+  // inital navigation for checking state
+  const navigation = useNavigation();
 
   // State for input field
   const [placeholderShown, setPlaceholderShown] = useState(true);
@@ -63,9 +69,24 @@ const PromptField = () => {
 
   // Handle submit
   const handleSubmit = useCallback(() => {
+    // Prevent submission if the input is empty or form submission is ongoing.
+    if (!inputValue || navigation.state === 'submitting') return;
+
+    submit(
+      {
+        user_prompt: inputValue,
+        request_type: 'user_prompt',
+      },
+      {
+        method: 'POST',
+        encType: 'application/x-www-form-urlencoded',
+        action: '/',
+      },
+    );
+
     inputField.current.innerHTML = '';
     handleInputChange();
-  }, [handleInputChange]);
+  }, [handleInputChange, inputValue, navigation.state, submit]);
 
   // Defines a Framer Motion variant for the prompt field, controling its animation based on its visibility state.
   const promptFieldVariant = {
