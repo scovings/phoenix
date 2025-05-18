@@ -7,7 +7,7 @@
  * Node modules
  */
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLoaderData } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 /**
@@ -18,6 +18,11 @@ import { ExtendedFab } from './Button';
 import { IconBtn } from './Button';
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
+  // Extract conversations from loader data if it exists
+  const {
+    coversation: { documents: conversationData },
+  } = useLoaderData() || {};
+
   return (
     <>
       <motion.div
